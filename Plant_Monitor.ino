@@ -1,5 +1,9 @@
 /*
 
+Arduino Plant Monitor
+By: Jenny Lindberg
+
+---------
 Based on:
 
 Phant_CC3000.ino

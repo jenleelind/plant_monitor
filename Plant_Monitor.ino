@@ -1,4 +1,7 @@
-/*****************************************************************
+/*
+
+Based on:
+
 Phant_CC3000.ino
 Post data to SparkFun's data stream server system (phant) using
 an Arduino and the CC3000 Shield.
@@ -12,19 +15,15 @@ buy us a round!
 Much of this code is largely based on Shawn Hymel's WebClient
 example in the SFE_CC3000 library.
 
-Distributed as-is; no warranty is given.
-*****************************************************************/
+Weather Shield Example
+By: Nathan Seidle
+SparkFun Electronics
+Date: November 16th, 2013
+License: This code is public domain but you buy me a beer if you use this and we meet someday (Beerware license).
 
-/*
- Weather Shield Example
- By: Nathan Seidle
- SparkFun Electronics
- Date: November 16th, 2013
- License: This code is public domain but you buy me a beer if you use this and we meet someday (Beerware license).
+Much of this is based on Mike Grusin's USB Weather Board code: https://www.sparkfun.com/products/10586
 
- Much of this is based on Mike Grusin's USB Weather Board code: https://www.sparkfun.com/products/10586
-
- */
+*/
 
 // SPI and the pair of SFE_CC3000 include statements are required
 // for using the CC300 shield as a client device.
@@ -266,6 +265,10 @@ void printWeather()
 
 void postData()
 {
+  // re-connect to wifi if not connected
+  // randomly drops out
+  connectWiFi();
+  
   // Make a TCP connection to remote host
   if ( !client.connect(server, 80) )
   {
@@ -322,14 +325,7 @@ void setupWiFi()
     Serial.println(F("Error: 0"));
   }
 
-  // Connect using DHCP
-  Serial.print(F("Connecting to: "));
-  Serial.println(ap_ssid);
-  if(!wifi.connect(ap_ssid, ap_security, ap_password, timeout))
-  {
-    // Error: 1 - Could not connect to AP
-    Serial.println(F("Error: 1"));
-  }
+  connectWiFi();  
 
   // Gather connection details and print IP address
   if ( !wifi.getConnectionInfo(connection_info) )
@@ -349,5 +345,17 @@ void setupWiFi()
       }
     }
     Serial.println();
+  }
+}
+
+void connectWiFi()
+{
+  // Connect using DHCP
+  Serial.print(F("Connecting to: "));
+  Serial.println(ap_ssid);
+  if(!wifi.connect(ap_ssid, ap_security, ap_password, timeout))
+  {
+    // Error: 1 - Could not connect to AP
+    Serial.println(F("Error: 1"));
   }
 }

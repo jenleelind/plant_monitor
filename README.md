@@ -16,6 +16,6 @@ Takes a reading every second, and keeps a running average for 5 minutes. Every 5
 
 - **Innacurate readings.** Temperature consistently reads too high and humidity usually reads too low. Partially due to heat from the CC3000, which I have somewhat mitigated with insulative foam. Perhaps also because the temperature readings come from pressure and humidity sensors that were meant to measure the temperature of the part, not ambient temperature.
 
-- **WiFi Dropout?** Data will randomly stop showing up online, even though the "taking a reading" LED is stil flashing. Perhaps it's falling off wifi? Will attempt to connect on every write to see if that fixes the issue. (Connect method just returns false if already connected.)
+- **WiFi Dropout?** Data will randomly stop showing up online, even though the "taking a reading" LED is still flashing. Perhaps it's falling off wifi? Will attempt to connect on every write to see if that fixes the issue. (Connect method just returns false if already connected.)
 
 
